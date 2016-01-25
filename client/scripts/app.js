@@ -40,9 +40,28 @@ app.clearMessages = function() {
 };
 
 app.addMessage = function(message){
-  $('#chats').append($('<div>', message));
+  // $('#chats').append($('<div>', message));
+  //create message div
+  var mainDiv = $('<div>');
+  mainDiv.addClass('chat');
+  var username = $('<div>');
+  username.text(message.username);
+  username.addClass('username');
+  var text = $('<div>');
+  text.text(message.text);
+
+  $('#chats').append(mainDiv.append(username).append(text));
+    //subdiv with username
+      //has an onclick related to addFriend...
+    //subdiv with text
+
+
 };
 
 app.addRoom = function(room) {
   $('#roomSelect').append($('<div>', room));
+};
+
+app.addFriend = function() {
+  return true;
 };
