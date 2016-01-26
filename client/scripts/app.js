@@ -79,11 +79,11 @@ app.addFriend = function() {
 app.handleSubmit = function() {
   var text = $('#message').val();
   var username = window.username;
-  var room = 'lobby';
+  var roomname = $('#roomSelect').val();
   var message = {
     username: username,
     text: text,
-    roomname: room
+    roomname: roomname
   };
   app.send(message);
   
@@ -96,8 +96,22 @@ var lastMessageID;
 
 
 var postMessages = function(data) {
-  for (var i = data.results.length-1; i >= 0; i--) {
-    app.addMessage(data.results[i]);
+  if(lastMessageID) {
+    for (var i = 0; i < data.results.length; i++) {
+      if (data.results[i].objectId === lastMessageID) {
+        lastMessageID = data.results[0].objectId;
+        break;
+      }
+    }
+    i--;
+    for (;i >= 0; i--) {
+      app.addMessage(data.results[i]);
+    }
+  } else {
+    lastMessageID = data.results[0].objectId;
+    for (var j = data.results.length-1; j >= 0; j--){
+        app.addMessage(data.results[j]);
+    }
   }
 };
 
@@ -150,6 +164,5 @@ var filterRooms = function(){
     }
   });
 };
-// $('#roomSelect').on('change', filterRooms);
-  //add on select event
-  //hide everything except matching room. Rooms are classes on main divs
+
+
