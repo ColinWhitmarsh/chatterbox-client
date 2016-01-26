@@ -71,7 +71,7 @@ app.addFriend = function() {
 // $('#send').on('click', app.handleSubmit);
 app.handleSubmit = function() {
   var text = $('#message').val();
-  var username = window.location.search.substring(10);
+  var username = window.username;
   var room = 'lobby';
   var message = {
     username: username,
@@ -96,20 +96,20 @@ var postMessages = function(data) {
 
 app.getRooms = function() {
   $.ajax({
-  // This is the url you should use to communicate with the parse API server.
-  url: 'https://api.parse.com/1/classes/chatterbox',
-  type: 'GET',
-  contentType: 'application/json',
-  data: {order: "-createdAt", limit: 1000 },
-  success: function (data) {
-    data.results.forEach(function(item){
-      app.rooms[item.roomname] = item.roomname;
-    });
-  },
-  error: function (data) {
-    console.error('chatterbox: Failed to receive message');
-  }
-});
+    // This is the url you should use to communicate with the parse API server.
+    url: 'https://api.parse.com/1/classes/chatterbox',
+    type: 'GET',
+    contentType: 'application/json',
+    data: {order: "-createdAt", limit: 1000 },
+    success: function (data) {
+      data.results.forEach(function(item){
+        app.rooms[item.roomname] = item.roomname;
+      });
+    },
+    error: function (data) {
+      console.error('chatterbox: Failed to receive message');
+    }
+  });
 };
 
 app.rooms = {};

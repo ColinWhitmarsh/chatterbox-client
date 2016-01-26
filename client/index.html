@@ -21,6 +21,8 @@
         Room:
         <select id="roomSelect">
         </select>
+        <button type="button" onclick="app.fetch(); return false;">New Chats</button>
+        <button type="button" onclick="newUser(); return false;">Change User</button>
       </div>
         <form onsubmit="app.handleSubmit(); return false;" id="send">
           <input type='text' id="message">
