@@ -47,6 +47,7 @@ app.addMessage = function(message){
   var username = $('<div>');
   username.text(message.username);
   username.addClass('username');
+  username.on('click', app.addFriend);
   var text = $('<div>');
   text.text(message.text);
 
@@ -63,5 +64,21 @@ app.addRoom = function(room) {
 };
 
 app.addFriend = function() {
-  return true;
+  console.log('hello friend!');
+};
+
+// $('#send').on('click', app.handleSubmit);
+app.handleSubmit = function() {
+  var text = $('#message').val();
+  var username = window.location.search.substring(10);
+  var room = 'lobby';
+  var message = {
+    username: username,
+    text: text,
+    room: room
+  };
+  app.send(message);
+  
+  $('#message').val('');
+  console.log('hello friend!');
 };

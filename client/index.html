@@ -17,6 +17,12 @@
     <div id="main">
       <h1>chatterbox</h1>
       <!-- Your HTML goes here! -->
+      <div>
+        <form onsubmit="app.handleSubmit(); return false;" id="send">
+          <input type='text' id="message">
+          <input type="submit" value="Submit" class="submit">
+        </form>
+      </div>
     </div>
     <div id="chats"></div>
   </body>
