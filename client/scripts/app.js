@@ -47,6 +47,11 @@ app.addMessage = function(message){
   var mainDiv = $('<div>');
   mainDiv.addClass('chat');
   
+  //add class for rooms to main div
+  //add class for username for main div
+
+
+
   var username = $('<div>');
   username.addClass('username');
   username.text(message.username);
@@ -124,4 +129,6 @@ var populateRooms = function() {
 };
 
 
-
+//onSelect function that hides and shows chats based on rooms
+  //add on select event
+  //hide everything except matching room. Rooms are classes on main divs
