@@ -46,6 +46,10 @@ body {
     line-height: 13px;
 }
 
+#roomSelect {
+    width: 100px;
+}
+
 form {
     padding: 20px;
     padding-left: 0;
