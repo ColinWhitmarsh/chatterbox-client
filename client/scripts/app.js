@@ -1,4 +1,9 @@
 // YOUR CODE HERE:
+var newUser = function(){
+  window.username =prompt('What is your name?');
+};
+newUser();
+
 var app = {};
 
 app.init = function() {};
@@ -46,15 +51,12 @@ app.clearMessages = function() {
 app.addMessage = function(message){
   var mainDiv = $('<div>');
   mainDiv.addClass('chat');
+  mainDiv.addClass(JSON.stringify(message.roomname));
+  mainDiv.addClass(JSON.stringify(message.username));
   
-  //add class for rooms to main div
-  //add class for username for main div
-
-
-
   var username = $('<div>');
   username.addClass('username');
-  username.text(message.username);
+  username.text(message.username+" @ "+ message.roomname);
   username.on('click', app.addFriend);
   
   var text = $('<div>');
