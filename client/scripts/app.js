@@ -101,23 +101,6 @@ var postMessages = function(data) {
   }
 };
 
-app.getRooms = function() {
-  $.ajax({
-    // This is the url you should use to communicate with the parse API server.
-    url: 'https://api.parse.com/1/classes/chatterbox',
-    type: 'GET',
-    contentType: 'application/json',
-    data: {order: "-createdAt", limit: 1000 },
-    success: function (data) {
-      data.results.forEach(function(item){
-        app.rooms[item.roomname] = item.roomname;
-      });
-    },
-    error: function (data) {
-      console.error('chatterbox: Failed to receive message');
-    }
-  });
-};
 
 app.rooms = {};
 
@@ -130,7 +113,43 @@ var populateRooms = function() {
   });
 };
 
+app.getRooms = function() {
+  $.ajax({
+    // This is the url you should use to communicate with the parse API server.
+    url: 'https://api.parse.com/1/classes/chatterbox',
+    type: 'GET',
+    contentType: 'application/json',
+    data: {order: "-createdAt", limit: 1000 },
+    success: function (data) {
+      data.results.forEach(function(item){
+        app.rooms[item.roomname] = item.roomname;
+      });
+      populateRooms();
+    },
+    error: function (data) {
+      console.error('chatterbox: Failed to receive message');
+    }
+  });
+};
+
+app.getRooms();
 
 //onSelect function that hides and shows chats based on rooms
+var filterRooms = function(){
+  var currentRoom = $('#roomSelect').val();
+  var chats = $('#chats').children();
+
+  _.each(chats, function(node) {
+    console.log('node', node);
+    console.log('currentRoom', currentRoom);
+    console.log($(node).hasClass(currentRoom));
+    if ($(node).hasClass(JSON.stringify(currentRoom)) === true) {
+      $(node).show();
+    } else {
+      $(node).hide();
+    }
+  });
+};
+// $('#roomSelect').on('change', filterRooms);
   //add on select event
   //hide everything except matching room. Rooms are classes on main divs

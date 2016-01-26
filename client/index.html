@@ -19,7 +19,7 @@
       <!-- Your HTML goes here! -->
       <div id="rooms">
         Room:
-        <select id="roomSelect">
+        <select id="roomSelect" onchange="filterRooms(); return false;">
         </select>
         <button type="button" onclick="app.fetch(); return false;">New Chats</button>
         <button type="button" onclick="newUser(); return false;">Change User</button>
