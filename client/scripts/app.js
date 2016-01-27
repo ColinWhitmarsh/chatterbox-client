@@ -6,7 +6,14 @@ newUser();
 
 var app = {};
 
-app.init = function() {};
+app.init = function() {
+  $('.tabs').on('click', '.roomTabs', function(event) {
+  var roomname = event.target.textContent;
+  $('#roomSelect').val(roomname);
+  filterRooms();
+});
+
+};
 
 app.send = function(message) {
   $.ajax({
@@ -133,7 +140,7 @@ app.getRooms = function() {
     url: 'https://api.parse.com/1/classes/chatterbox',
     type: 'GET',
     contentType: 'application/json',
-    data: {order: "-createdAt", limit: 1000 },
+    data: {order: "-createdAt", limit: 100 },
     success: function (data) {
       data.results.forEach(function(item){
         app.rooms[item.roomname] = item.roomname;
@@ -148,21 +155,44 @@ app.getRooms = function() {
 
 app.getRooms();
 
-//onSelect function that hides and shows chats based on rooms
+
 var filterRooms = function(){
   var currentRoom = $('#roomSelect').val();
   var chats = $('#chats').children();
 
+  app.newTab();
+
   _.each(chats, function(node) {
-    console.log('node', node);
-    console.log('currentRoom', currentRoom);
-    console.log($(node).hasClass(currentRoom));
     if ($(node).hasClass(JSON.stringify(currentRoom)) === true) {
       $(node).show();
     } else {
       $(node).hide();
     }
   });
+};
+
+
+
+app.newTab = function() {
+  var currentTabs = $('.tabs').children();
+  var found = false;
+
+  _.each(currentTabs, function(tab) {
+    if ($(tab).text() === $('#roomSelect').val()) {
+      $(tab).addClass('SelectedRoom');
+      found = true;
+    } else {
+      $(tab).removeClass('SelectedRoom');
+    }
+  });
+
+  if (!found) {
+    var roomTab = $('<div>');
+    roomTab.text($('#roomSelect').val());
+    roomTab.addClass('SelectedRoom');
+    roomTab.addClass('roomTabs');
+    $('.tabs').prepend(roomTab);  
+  }
 };
 
 
