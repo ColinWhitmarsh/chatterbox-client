@@ -34,7 +34,7 @@
       <select id="roomSelect">
       </select>
     </div>
-    <form action="#" id="send" method="post">
+    <form action="#" id="send" method="post" onsubmit="app.handleSubmit(); return false;">
       <input type="text" name="message" id="message"/>
       <input type="submit" name="submit" class="submit"/>
     </form>
