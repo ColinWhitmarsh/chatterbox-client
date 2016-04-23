@@ -1,4 +1,3 @@
-// YOUR CODE HERE:
 var newUser = function(){
   window.username =prompt('What is your name?');
 };
@@ -17,7 +16,6 @@ app.init = function() {
 
 app.send = function(message) {
   $.ajax({
-    // This is the url you should use to communicate with the parse API server.
     url: 'https://api.parse.com/1/classes/chatterbox',
     type: 'POST',
     data: JSON.stringify(message),
@@ -26,7 +24,6 @@ app.send = function(message) {
       console.log('chatterbox: Message sent');
     },
     error: function (data) {
-      // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
       console.error('chatterbox: Failed to send message');
     }
   });
@@ -35,7 +32,6 @@ app.send = function(message) {
 
 app.test = function(message) {
     $.ajax({
-    // This is the url you should use to communicate with the parse API server.
     url: 'https://api.parse.com/1/classes/chatterbox/RP5785bzHR',
     type: 'PUT',
     data: JSON.stringify(message),
@@ -44,7 +40,6 @@ app.test = function(message) {
       console.log('chatterbox: Message sent');
     },
     error: function (data) {
-      // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
       console.error('chatterbox: Failed to send message');
     }
   });
@@ -54,11 +49,9 @@ app.test = function(message) {
 
 app.fetch = function() {
   $.ajax({
-  // This is the url you should use to communicate with the parse API server.
   url: 'https://api.parse.com/1/classes/chatterbox',
   type: 'GET',
   contentType: 'application/json',
-  // data: {order: "-createdAt", limit: 100, where:JSON.stringify({roomname: 'lobby'})},
   data: {order: "-createdAt", limit: 100},
   success: function (data) {
     console.log(data);
@@ -66,7 +59,6 @@ app.fetch = function() {
     postMessages(data);
   },
   error: function (data) {
-    // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
     console.error('chatterbox: Failed to receive message');
   }
 });
@@ -92,7 +84,6 @@ app.addMessage = function(message){
 
   $('#chats').prepend(mainDiv.append(username).append(text));
 
-  //don't add if username or text is empty
 };
 
 app.addRoom = function(room) {
@@ -103,7 +94,7 @@ app.addFriend = function() {
   console.log('add friend!');
 };
 
-// $('#send').on('click', app.handleSubmit);
+
 app.handleSubmit = function() {
   var text = $('#message').val();
   var username = window.username;
@@ -157,7 +148,7 @@ var populateRooms = function() {
 
 app.getRooms = function() {
   $.ajax({
-    // This is the url you should use to communicate with the parse API server.
+
     url: 'https://api.parse.com/1/classes/chatterbox',
     type: 'GET',
     contentType: 'application/json',
@@ -215,5 +206,4 @@ app.newTab = function() {
     $('.tabs').prepend(roomTab);  
   }
 };
-
 
